@@ -22,8 +22,12 @@ public class UserDaoImp implements UserDao {
    @Override
    @SuppressWarnings("unchecked")
    public List<User> listUsers() {
-      TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
+      String hql = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.cars";
+      TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql, User.class);
       return query.getResultList();
+   }
+   public void update(User user) {
+      sessionFactory.getCurrentSession().update(user);
    }
 
 }
