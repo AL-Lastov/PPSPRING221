@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -31,5 +32,16 @@ public class UserServiceImp implements UserService {
    public void update(User user) {
       userDao.update(user);
    }
+   @Transactional(readOnly = true)
+   @Override
+   public Optional<User> getUserById(Long id) {
+      return userDao.getUserById(id);
+   }
+   @Transactional(readOnly = true)
+   @Override
+   public Optional<User> getUserFromCarModel(String model) {
+      return userDao.getUserFromCarModel(model);
+   }
+
 
 }

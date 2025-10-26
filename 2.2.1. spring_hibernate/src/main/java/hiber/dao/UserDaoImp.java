@@ -4,30 +4,54 @@ import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDaoImp implements UserDao {
 
-   @Autowired
-   private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-   @Override
-   public void add(User user) {
-      sessionFactory.getCurrentSession().save(user);
-   }
+    @Override
+    public void add(User user) {
+        sessionFactory.getCurrentSession().save(user);
+    }
 
-   @Override
-   @SuppressWarnings("unchecked")
-   public List<User> listUsers() {
-      String hql = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.cars";
-      TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql, User.class);
-      return query.getResultList();
-   }
-   public void update(User user) {
-      sessionFactory.getCurrentSession().update(user);
-   }
+    @Override
+    public List<User> listUsers() {
+        String hql = "from User";
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql, User.class);
+        return query.getResultList();
+    }
 
+    public void update(User user) {
+        sessionFactory.getCurrentSession().update(user);
+    }
+
+    @Override
+    public Optional<User> getUserById(Long id) {
+        try {
+            User user = sessionFactory.getCurrentSession().get(User.class, id);
+            return Optional.ofNullable(user);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<User> getUserFromCarModel(String model) {
+        String hql = "select u from User u join u.cars c where c.model = :model";
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql, User.class);
+        query.setParameter("model", model);
+        try {
+            return Optional.of(query.getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+    }
 }
+
+
