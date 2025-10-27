@@ -23,8 +23,7 @@ public class CarDaoImp implements CarDao {
 
     @Override
     public List<Car> listCars() {
-        String hql = "from Car";
-        TypedQuery<Car> query = sessionFactory.getCurrentSession().createQuery(hql, Car.class);
+        TypedQuery<Car> query = sessionFactory.getCurrentSession().createQuery("from Car", Car.class);
         return query.getResultList();
     }
 
@@ -35,8 +34,7 @@ public class CarDaoImp implements CarDao {
     }
     @Override
     public Optional<Car> getCarsByModel(String model) {
-        String hql = "from Car where model = :model";
-        TypedQuery<Car> query = sessionFactory.getCurrentSession().createQuery(hql, Car.class);
+        TypedQuery<Car> query = sessionFactory.getCurrentSession().createQuery("from Car where model = :model", Car.class);
         query.setParameter("model", model);
         List<Car> cars = query.getResultList();
         return cars.stream().findFirst();

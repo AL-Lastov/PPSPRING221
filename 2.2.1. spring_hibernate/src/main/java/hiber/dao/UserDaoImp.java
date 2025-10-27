@@ -22,8 +22,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public List<User> listUsers() {
-        String hql = "from User";
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql, User.class);
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User", User.class);
         return query.getResultList();
     }
 
@@ -43,8 +42,9 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public Optional<User> getUserFromCarModel(String model, int series) {
-        String hql = "select u from User u join u.cars c where c.model = :model and c.series =:series";
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql, User.class);
+        TypedQuery<User> query = sessionFactory.getCurrentSession()
+                .createQuery("select u from User u join u.cars c where c.model = :model and c.series =:series",
+                        User.class);
         query.setParameter("model", model);
         query.setParameter("series", series);
         try {
