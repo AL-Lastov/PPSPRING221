@@ -31,9 +31,7 @@ public class MainApp {
               new User("I", "P", "i@mail.ru"),
               new User("K", "L", "k@ya.ru"),
               new User("A", "O", "a@tut.by"),
-              new User("N", "V", "n@gmail.com"),
-              new User("L", "I", null)
-              );
+              new User("N", "V", "n@yandex.ru"));
 
       for (Car car : cars) {
          carService.addCar(car);
@@ -66,12 +64,12 @@ public class MainApp {
          System.out.println(user);
       }
       System.out.println("ищем юзера по машине");
-      Optional<User> chekModelUser = userService.getUserFromCarModel("VOLGA");
+      Optional<User> chekModelUser = userService.getUserFromCarModel("VOLGA",5);
       System.out.println(chekModelUser.isPresent());
       System.out.println(chekModelUser.get());
 
       System.out.println("ищем машину по модели");
-      List<Car>chekCarModel = carService.getCarsByModel("Honda");
+      Optional<Car>chekCarModel = carService.getCarsByModel("Honda");
       System.out.println(chekCarModel);
 
       context.close();

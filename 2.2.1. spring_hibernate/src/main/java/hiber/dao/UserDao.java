@@ -13,5 +13,5 @@ public interface UserDao {
 
    Optional<User> getUserById(Long id);
 
-   Optional<User> getUserFromCarModel(String model);
+   Optional<User> getUserFromCarModel(String model, int series);
 }

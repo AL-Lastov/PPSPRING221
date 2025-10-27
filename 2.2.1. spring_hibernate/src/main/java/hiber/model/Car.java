@@ -26,7 +26,7 @@ public class Car {
     @Column(name = "series")
     int series;
 
-    @Column(name = "price",precision = 19, scale = 2) // Указываем точность для BigDecimal
+    @Column(name = "price",precision = 19, scale = 2)
     BigDecimal price;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

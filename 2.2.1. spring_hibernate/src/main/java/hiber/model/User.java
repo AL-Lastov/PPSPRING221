@@ -35,8 +35,8 @@ public class User {
     @Email
     @NotBlank(message = "email must be patriotic")
     private String email;
-
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+//orphanRemoval = true
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Car> cars = new ArrayList<>();
 
     public User() {

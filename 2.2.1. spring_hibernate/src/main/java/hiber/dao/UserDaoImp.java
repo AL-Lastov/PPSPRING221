@@ -42,10 +42,11 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public Optional<User> getUserFromCarModel(String model) {
-        String hql = "select u from User u join u.cars c where c.model = :model";
+    public Optional<User> getUserFromCarModel(String model, int series) {
+        String hql = "select u from User u join u.cars c where c.model = :model and c.series =:series";
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql, User.class);
         query.setParameter("model", model);
+        query.setParameter("series", series);
         try {
             return Optional.of(query.getSingleResult());
         } catch (NoResultException e) {

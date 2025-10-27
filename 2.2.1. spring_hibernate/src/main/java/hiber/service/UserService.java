@@ -10,5 +10,5 @@ public interface UserService {
     List<User> listUsers();
     void update(User user);
     Optional<User> getUserById(Long id);
-    Optional<User> getUserFromCarModel(String model);
+    Optional<User> getUserFromCarModel(String model, int series);
 }

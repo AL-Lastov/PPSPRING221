@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class CarServiceImpl implements CarService {
     @Autowired
@@ -37,7 +38,7 @@ public class CarServiceImpl implements CarService {
 
     @Transactional
     @Override
-    public List<Car> getCarsByModel(String model) {
+    public Optional<Car> getCarsByModel(String model) {
         return carDao.getCarsByModel(model);
     }
 }
